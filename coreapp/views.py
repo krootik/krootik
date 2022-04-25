@@ -1,5 +1,3 @@
-from ast import If
-from contextlib import redirect_stderr
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
@@ -13,7 +11,7 @@ def home (request):
 
 @login_required(login_url='/restaurant/sign_in/')
 def restaurant_home (request):
-    return render(request, 'restaurant/home.html', {})
+    return redirect(restaurant_order)
 
 def restaurant_sign_up (request):
     user_form = UserForm()
@@ -40,3 +38,19 @@ def restaurant_sign_up (request):
         "user_form": user_form,
         "restaurant_form": restaurant_form
     })
+
+@login_required(login_url='/restaurant/sign_in/')
+def restaurant_account(request):
+    return render(request, 'restaurant/account.html', {})
+
+@login_required(login_url='/restaurant/sign_in/')
+def restaurant_meal(request):
+    return render(request, 'restaurant/meal.html', {})
+
+@login_required(login_url='/restaurant/sign_in/')
+def restaurant_order(request):
+    return render(request, 'restaurant/order.html', {})
+
+@login_required(login_url='/restaurant/sign_in/')
+def restaurant_report(request):
+    return render(request, 'restaurant/report.html', {})
