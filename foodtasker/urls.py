@@ -17,7 +17,9 @@ from re import template
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from coreapp import views
+from coreapp import views, apis
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +32,13 @@ urlpatterns = [
 
     path('restaurant/account/', views.restaurant_account, name='restaurant_account'),
     path('restaurant/meal/', views.restaurant_meal, name='restaurant_meal'),
+    path('restaurant/meal/add', views.restaurant_add_meal, name='restaurant_add_meal'),
+    path('restaurant/meal/edit/<int:meal_id>', views.restaurant_edit_meal, name='restaurant_edit_meal'),
     path('restaurant/order/', views.restaurant_order, name='restaurant_order'),
     path('restaurant/report/', views.restaurant_report, name='restaurant_report'),
+
+    path('api/customer/restaurants/', apis.customer_get_restaurants),
+    path('api/customer/meals/<int:restaurant_id>/', apis.customer_get_meals), 
+    path('api/customer/order/add/', apis.customer_add_order), 
+    path('api/customer/order/latest/', apis.customer_get_latest_order),  
 ]
